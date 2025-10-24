@@ -1668,7 +1668,6 @@ window.location.href='http://shi.buaa.edu.cn/wangmiao/zh_CN/index.htm';
     color: white; 
   }
 </style>
-
 <style>
   .hover-effect {
     display: flex;
@@ -1681,7 +1680,7 @@ window.location.href='http://shi.buaa.edu.cn/wangmiao/zh_CN/index.htm';
     max-width: 1000px;
     margin-left: 0;
     transition: background-color 0.3s ease;
-    position: relative; 
+    position: relative; /* 作为图片放大的坐标参考 */
   }
 
   .hover-effect:hover {
@@ -1694,9 +1693,20 @@ window.location.href='http://shi.buaa.edu.cn/wangmiao/zh_CN/index.htm';
     position: relative;
   }
 
-  .hover-zoom:hover {
-    transform: scale(2.2);
-    z-index: 10;
+  /* 电脑端（屏幕宽度>768px）*/
+  @media (min-width: 769px) {
+    .hover-zoom:hover {
+      transform: scale(4.2);
+      z-index: 10;
+    }
+  }
+
+  /* 手机端（屏幕宽度≤768px） */
+  @media (max-width: 768px) {
+    .hover-zoom:hover {
+      transform: scale(2.2);
+      z-index: 10;
+    }
   }
 </style>
 
