@@ -85,33 +85,22 @@
       search.focus({ preventScroll: true });
     }
 
-    function loadFigure(source, fallback, title) {
+    function loadFigure(source, title) {
       const request = ++imageRequest;
+      figure.hidden = true;
       figure.alt = title;
-      figure.hidden = !fallback;
-      if (fallback) figure.src = fallback;
-      loading.hidden = Boolean(fallback);
+      loading.hidden = false;
       loading.textContent = 'Loading figure…';
       error.hidden = true;
-      let usingFallback = false;
       const image = new Image();
       image.onload = () => {
         if (request !== imageRequest) return;
         figure.src = image.src;
         figure.hidden = false;
         loading.hidden = true;
-        if (usingFallback) {
-          error.textContent = 'The full-size figure is unavailable. Showing the preview image.';
-          error.hidden = false;
-        }
       };
       image.onerror = () => {
         if (request !== imageRequest) return;
-        if (!usingFallback && fallback && fallback !== source) {
-          usingFallback = true;
-          image.src = fallback;
-          return;
-        }
         loading.hidden = true;
         error.textContent = 'This figure could not be loaded. Try reopening this figure.';
         error.hidden = false;
@@ -137,7 +126,7 @@
       previous.setAttribute('aria-label', 'Previous publication');
       next.setAttribute('aria-label', 'Next publication');
       const source = image.dataset.fullImage || image.currentSrc || image.src;
-      loadFigure(source, image.currentSrc || image.src, title);
+      loadFigure(source, title);
       viewer.scrollTop = 0;
     }
 
