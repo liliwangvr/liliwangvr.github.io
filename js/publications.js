@@ -87,9 +87,10 @@
 
     function loadFigure(source, fallback, title) {
       const request = ++imageRequest;
-      figure.hidden = true;
       figure.alt = title;
-      loading.hidden = false;
+      figure.hidden = !fallback;
+      if (fallback) figure.src = fallback;
+      loading.hidden = Boolean(fallback);
       loading.textContent = 'Loading figure…';
       error.hidden = true;
       let usingFallback = false;
@@ -152,6 +153,20 @@
 
     papers.forEach(paper => {
       const button = paper.querySelector('button.paper-image');
+      const thumbnail = button && button.querySelector('img');
+      if (thumbnail) {
+        const recover = () => {
+          if (thumbnail.dataset.originalImage && !thumbnail.dataset.retried) {
+            thumbnail.dataset.retried = 'true';
+            thumbnail.src = thumbnail.dataset.originalImage;
+          } else {
+            thumbnail.style.visibility = 'hidden';
+            button.classList.add('image-unavailable');
+          }
+        };
+        thumbnail.addEventListener('error', recover);
+        if (thumbnail.complete && !thumbnail.naturalWidth) recover();
+      }
       if (button) button.addEventListener('click', () => openViewer(paper, button));
     });
     search.addEventListener('input', filterPapers);
