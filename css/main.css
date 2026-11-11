@@ -9101,3 +9101,6 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .navbar-nav > li > a {
 @media (max-width: 520px) {
   #homeid .home-portrait { width: 120px; margin-right: 20px; }
 }
+
+/* Reserve the scrollbar space on every page so the navigation does not shift. */
+html { overflow-y: scroll; scrollbar-gutter: stable; }
