@@ -9036,3 +9036,68 @@ pubtit {
     margin-left: 30px;
     margin-right: 30px
 }
+
+/* Shared typography for the lab site. */
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/Manrope-Variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+body, button, input, select, textarea {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .navbar-brand, .navbar-nav > li > a {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+
+/* Portrait motion matches the Beihang faculty directory: 10% zoom and one light sweep. */
+#homeid .home-portrait {
+  position: relative;
+  display: block;
+  float: left;
+  width: 190px;
+  margin: 12px 50px 10px 0;
+  overflow: hidden;
+  border-radius: 5%;
+}
+#homeid .home-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: scale(1);
+  transition: transform .8s ease;
+}
+#homeid .home-portrait::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -90%;
+  z-index: 3;
+  display: block;
+  width: 50%;
+  height: 100%;
+  opacity: .25;
+  pointer-events: none;
+  background: linear-gradient(to right, rgba(255,255,255,0) 30%, #fff 50%, rgba(255,255,255,0) 70%);
+  transform: skewX(-25deg);
+}
+@media (hover: hover) {
+  #homeid .home-portrait:hover img { transform: scale(1.1); }
+  #homeid .home-portrait:hover::before { animation: portrait-shine 1s ease; }
+}
+@keyframes portrait-shine {
+  to { left: 125%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #homeid .home-portrait img { transition: none; }
+  #homeid .home-portrait:hover img { transform: none; }
+  #homeid .home-portrait:hover::before { animation: none; }
+}
+@media (max-width: 520px) {
+  #homeid .home-portrait { width: 120px; margin-right: 20px; }
+}
