@@ -125,8 +125,16 @@
       next.disabled = index === visiblePapers.length - 1;
       previous.setAttribute('aria-label', 'Previous publication');
       next.setAttribute('aria-label', 'Next publication');
-      const source = image.dataset.fullImage || image.currentSrc || image.src;
-      loadFigure(source, title);
+      if (image) {
+        const source = image.dataset.fullImage || image.currentSrc || image.src;
+        loadFigure(source, title);
+      } else {
+        imageRequest += 1;
+        figure.hidden = true;
+        loading.hidden = true;
+        error.textContent = 'Figure unavailable.';
+        error.hidden = false;
+      }
       viewer.scrollTop = 0;
     }
 

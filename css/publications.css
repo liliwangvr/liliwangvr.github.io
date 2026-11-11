@@ -215,3 +215,5 @@ body > .navbar a, #footer a { text-decoration: none; }
 #footer a:hover, #footer a:focus { text-decoration: underline; }
 
 .paper-image.image-unavailable::before { content: "Image unavailable"; position: absolute; color: #768295; font-size: 13px; }
+
+.paper-image-empty { color: #768295; background: #f7f9fc; font-size: 13px; cursor: pointer; }
